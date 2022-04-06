@@ -10,70 +10,71 @@ namespace msgame
     {
         int32 Collider::CollideCheck(int32 playerId, VECTOR::Vector3& direction, int32& collideId, float moveSpeed, int32 moveDelta)
         {
-            auto movingPlayer = owner_->GetPlayer(playerId);
-            auto players = owner_->GetPlayers();
-            VECTOR::Vector3& player_pos = movingPlayer->pos();
-            auto movePos = VECTOR::MoveTo(player_pos, direction, moveSpeed, moveDelta);
-            float collideInfo[4] = {0.0f};
+            // auto movingPlayer = owner_->GetPlayer(playerId);
+            // auto players = owner_->GetPlayers();
+            // VECTOR::Vector3& player_pos = movingPlayer->pos();
+            // auto movePos = VECTOR::MoveTo(player_pos, direction, moveSpeed, moveDelta);
+            // float collideInfo[4] = {0.0f};
 
-            for (auto iter = players.begin(); iter != players.end(); iter++)
-            {
-                if (iter->first == playerId)
-                {
-                    continue;
-                }
+            // for (auto iter = players.begin(); iter != players.end(); iter++)
+            // {
+            //     if (iter->first == playerId)
+            //     {
+            //         continue;
+            //     }
                 
-                auto tmp_pos = iter->second->pos();
-                float distance = VECTOR::Distance(tmp_pos, movePos);
+            //     auto tmp_pos = iter->second->pos();
+            //     float distance = VECTOR::Distance(tmp_pos, movePos);
 
-                if (distance < (PLAYER_RADIUS * 2))
-                {
-                    // calcucate the point player is moving to
-                    // if the point will collide with a player
-                    // add collide count and record current distance between the two players
-                    if (++collideInfo[0] == 1)
-                    {
-                        collideInfo[1] = VECTOR::Distance(player_pos, tmp_pos);
-                        collideInfo[2] = iter->first;
-                        auto delta = tmp_pos - player_pos;
-                        // std::stringstream ss;
-                        // ss<< std::setiosflags(std::ios::fixed) << std::setprecision(3)<<(double)(direction.dot(delta) / (direction.Length() * delta.Length()));
-                        // ss >> collideInfo[3];
-                        collideInfo[3] = direction.dot(delta) / (direction.Length() * delta.Length());
-                    }
-                }
-            }
+            //     if (distance < (PLAYER_RADIUS * 2))
+            //     {
+            //         // calcucate the point player is moving to
+            //         // if the point will collide with a player
+            //         // add collide count and record current distance between the two players
+            //         if (++collideInfo[0] == 1)
+            //         {
+            //             collideInfo[1] = VECTOR::Distance(player_pos, tmp_pos);
+            //             collideInfo[2] = iter->first;
+            //             auto delta = tmp_pos - player_pos;
+            //             // std::stringstream ss;
+            //             // ss<< std::setiosflags(std::ios::fixed) << std::setprecision(3)<<(double)(direction.dot(delta) / (direction.Length() * delta.Length()));
+            //             // ss >> collideInfo[3];
+            //             collideInfo[3] = direction.dot(delta) / (direction.Length() * delta.Length());
+            //         }
+            //     }
+            // }
 
-            if (collideInfo[0] == 0)
-            {
-                // road is clear, return ok
-                return CHECK_RES_OK;
-            }
-            else if (collideInfo[0] == 1)
-            {
-                // one player on the road
-                if (collideInfo[1] <= (PLAYER_RADIUS * 2) && 1.0f - collideInfo[3] > 0.0001f)
-                {
-                    // and they are colliding now
-                    collideId = collideInfo[2];
-                    return CHECK_RES_RECALC;
-                }
-                else if (collideInfo[1] <= (PLAYER_RADIUS * 2) && 1.0f - collideInfo[3] < 0.0001f)
-                {
-                    // going straightly toward another player
-                    return CHECK_RES_UNREACHABLE;
-                }
-                else
-                {
-                    // they still have some distance, so this movement is ok
-                    return CHECK_RES_OK;
-                }
-            }
-            else
-            {
-                // many players on the road, return fail
-                return CHECK_RES_UNREACHABLE;
-            }
+            // if (collideInfo[0] == 0)
+            // {
+            //     // road is clear, return ok
+            //     return CHECK_RES_OK;
+            // }
+            // else if (collideInfo[0] == 1)
+            // {
+            //     // one player on the road
+            //     if (collideInfo[1] <= (PLAYER_RADIUS * 2) && 1.0f - collideInfo[3] > 0.0001f)
+            //     {
+            //         // and they are colliding now
+            //         collideId = collideInfo[2];
+            //         return CHECK_RES_RECALC;
+            //     }
+            //     else if (collideInfo[1] <= (PLAYER_RADIUS * 2) && 1.0f - collideInfo[3] < 0.0001f)
+            //     {
+            //         // going straightly toward another player
+            //         return CHECK_RES_UNREACHABLE;
+            //     }
+            //     else
+            //     {
+            //         // they still have some distance, so this movement is ok
+            //         return CHECK_RES_OK;
+            //     }
+            // }
+            // else
+            // {
+            //     // many players on the road, return fail
+            //     return CHECK_RES_UNREACHABLE;
+            // }
+            return 0;
         }
 
         VECTOR::Vector3 Collider::RecalculatePos(VECTOR::Vector3& curPosition, VECTOR::Vector3& direction, VECTOR::Vector3& collidePos, float moveSpeed, int32 moveDelta)

@@ -4,6 +4,8 @@
 #include <string.h>
 #include <chrono>
 #include "ms_types.h"
+#include "ms_message.h"
+#include "LinearMath/btVector3.h"
 namespace msutils
 {
     static char* IntToBytes(int32 num)
@@ -106,6 +108,20 @@ namespace msutils
     {
         auto t = std::chrono::system_clock::now();
         return std::chrono::duration_cast<std::chrono::milliseconds>(t.time_since_epoch()).count();
+    }
+
+    static void Msg2Vector3(msmessage::BVector3 &msg, btVector3 &vec)
+    {
+        vec.setX(msg.x);
+        vec.setY(msg.y);
+        vec.setZ(msg.z);
+    }
+
+    static void Vector32Msg(msmessage::BVector3 &msg, btVector3 &vec)
+    {
+        msg.x = vec.getX();
+        msg.y = vec.getY();
+        msg.z = vec.getZ();
     }
 }
 #endif

@@ -6,6 +6,8 @@
 #include "physics/ms_collider.h"
 #include "ms_link_queue.h"
 #include "ms_simple_task.h"
+#include "LinearMath/btVector3.h"
+#include "BulletCollision/CollisionDispatch/btCollisionObject.h"
 
 #define GAMEOBJECT msgame::gameobject
 
@@ -18,7 +20,7 @@ namespace msgame
         private:
             int32 id_;
             std::string name_;
-            VECTOR::Vector3 pos_;
+            btCollisionObject *bt_cobj;
 
         public:
             int32 number_;
@@ -28,10 +30,23 @@ namespace msgame
             void Pulse();
 
             msmessage::BPlayer GetMsg();
-            inline VECTOR::Vector3 &pos() { return pos_; }
-            inline void pos(VECTOR::Vector3 &position) { pos_ = position; }
             inline int32 id() { return id_; }
             inline void id(int32 id) { id_ = id; }
+
+            void SetPosition(btVector3 &position) 
+            {
+                bt_cobj->getWorldTransform().setOrigin(position);
+            }
+
+            btVector3 GetPosition() const
+            {
+                return bt_cobj->getWorldTransform().getOrigin(); 
+            }
+
+            btCollisionObject *GetCollisionObject() const
+            {
+                return bt_cobj;
+            }
         };
     } // namespace gameobject
 } // namespace msgame

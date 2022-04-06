@@ -4,12 +4,15 @@ plugins {
 
 version 'unspecified'
 
-processResources {
-	from('src/main/resources') {
-		include '*.dll'
-	}
-}
+//processResources {
+//	from('src/main/resources') {
+//		include '*.dll'
+//	}
+//}
 
 dependencies {
+	implementation fileTree(dir: '../lib', include: ['*.jar'])
 	implementation project(":morgan-arch")
 }
+
+jar.enabled = true

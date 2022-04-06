@@ -5,7 +5,8 @@
 #include <unordered_map>
 #include "player.h"
 #include "ms_game_msghandler.h"
-#include "BulletCollision/CollisionDispatch/btCollisionWorld.h"
+#include "btBulletDynamicsCommon.h"
+#include "LinearMath/btVector3.h"
 
 #define GAMESESSION msgame::msgamesession
 
@@ -32,11 +33,14 @@ namespace msgame
             void* jvobj_prt_;
 
             MSGHANDLER::GameMsgHandler* msgHandler_;
-            PHYSICS::Collider* collider_;
+            // PHYSICS::Collider* collider_;
             std::unordered_map<int32, GAMEOBJECT::Player*> players_;
             OnceTasksPipe oncePipe_;
             LongTasksPipe longPipe_;
-            btCollisionWorld bt_world;
+            btCollisionWorld *bt_world;
+            btDefaultCollisionConfiguration *bt_collision_config;
+            btCollisionDispatcher *bt_collision_dispatcher;
+            btBroadphaseInterface *bt_overlap_pair_cache;
 
             void PulseHuman();
 
@@ -55,8 +59,6 @@ namespace msgame
             inline GAMEOBJECT::Player* GetPlayer(int32 id) { return players_[id]; }
             inline std::unordered_map<int32, GAMEOBJECT::Player*>& GetPlayers() { return players_; }
             void RemovePlayer(int32 id);
-            int32 MovementCheck(int32 playerId, VECTOR::Vector3& direction, int32& collideId, float moveSpeed = MOVE_SPEED, int32 moveDelta = MOVE_DELTA);
-            VECTOR::Vector3 CalcMovePos(int32 playerId, VECTOR::Vector3& direction, int32 collideId, float moveSpeed = MOVE_SPEED, int32 moveDelta = MOVE_DELTA);
 
             void SendMsg(int32 id, msmessage::MessageBase *msg);
             void SendMsg(std::vector<int32>& ids, msmessage::MessageBase *msg);
