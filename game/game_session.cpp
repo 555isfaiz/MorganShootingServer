@@ -11,14 +11,17 @@ namespace msgame
         :sessionId_(sessionId)
         ,curPhase_(PHASE_PREPARE)
         {
-            // bt_world = new btCollisionWorld(new btCollisionDispatcher(), );
+            bt_collision_config = new btDefaultCollisionConfiguration();
+            bt_collision_dispatcher = new btCollisionDispatcher(bt_collision_config);
+            bt_overlap_pair_cache = new btDbvtBroadphase();
+            bt_world = new btCollisionWorld(bt_collision_dispatcher, bt_overlap_pair_cache, bt_collision_config);
             msgHandler_ = new msmessage::handler::GameMsgHandler(this);
-            collider_ = new msgame::physics::Collider(this);
             createTime_ = msutils::GetNowMillSec();
         }
 
         void GameSession::Pulse()
         {
+            bt_world->updateAabbs();
             while (!oncePipe_.IsEmpty())
             {
                 auto t = oncePipe_.Pop();
@@ -109,6 +112,7 @@ namespace msgame
                 // }
                 
                 GAMEOBJECT::Player *p = new GAMEOBJECT::Player(id, name, number);
+                bt_world->addCollisionObject(p->GetCollisionObject());
                 players_.insert(std::pair<int32, gameobject::Player*>(id, p));
                 msg->players.push_back(p->GetMsg());
                 mLogInfo("player joined game! sessionId:"<<sessionId_<<", playerId:"<<id<<", playerName:"<<name);
@@ -150,48 +154,6 @@ namespace msgame
             // sync to client
         }
 
-        // minus errorcode stands for movement failure, otherwise status limit.
-        // if this move failed because of colliding with another player, collideId will be assigned
-        int32 GameSession::MovementCheck(int32 playerId, VECTOR::Vector3& direction, int32& collideId, float moveSpeed, int32 moveDelta)
-        {
-            // player status check
-            // ...
-
-            // collide check
-            int32 result = collider_->CollideCheck(playerId, direction, collideId, moveSpeed, moveDelta);
-            switch (result)
-            {
-            case PHYSICS::CHECK_RES_UNREACHABLE:
-                return -1;
-
-            case PHYSICS::CHECK_RES_RECALC:
-                return -2;
-
-            default:
-                break;
-            }
-
-            return 0;
-        }
-
-        VECTOR::Vector3 GameSession::CalcMovePos(int32 playerId, VECTOR::Vector3& direction, int32 collideId, float moveSpeed, int32 moveDelta)
-        {
-            VECTOR::Vector3 playerPos = players_[playerId]->pos();
-            if (collideId == 0)
-            {
-                return VECTOR::MoveTo(playerPos, direction, moveSpeed, moveDelta);
-            }
-            else
-            {
-                VECTOR::Vector3 colliderPos = players_[collideId]->pos();
-                if ((colliderPos - playerPos).dot(direction) <= 0)
-                {
-                    return VECTOR::MoveTo(playerPos, direction, moveSpeed, moveDelta);
-                }
-                return collider_->RecalculatePos(playerPos, direction, colliderPos, moveSpeed, moveDelta);
-            }
-        }
-
         void GameSession::SendMsg(int32 id, msmessage::MessageBase *msg)
         {
             // TODO: should pack msgs before call jni methods to reduce expands
@@ -211,7 +173,10 @@ namespace msgame
         GameSession::~GameSession()
         {
             delete msgHandler_;
-            delete collider_;
+            delete bt_world;
+            delete bt_overlap_pair_cache;
+            delete bt_collision_dispatcher;
+            delete bt_collision_config;
         }
     }
 }

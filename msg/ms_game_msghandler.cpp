@@ -7,7 +7,7 @@ namespace msmessage
     {
         void GameMsgHandler::Handle(int64 senderId, MessageBase *msg)
         {
-            if (senderId == 0 || &msg == nullptr)
+            if (senderId == 0 || msg == NULL)
             {
                 mLogError("unknown message!");
                 return;

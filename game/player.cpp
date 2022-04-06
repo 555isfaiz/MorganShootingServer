@@ -10,7 +10,7 @@ namespace msgame
         ,name_(name)
         ,number_(number)
         {
-            VECTOR::Vector3 v;
+            btVector3 v;
 
             // //side == 2
             // if (number_ % 2 == 0)
@@ -24,19 +24,18 @@ namespace msgame
             //     v.x = -6.0f;
             if (number_ == 0)
             {
-                v.x = 0.0f;
-                v.z = 0.0f;
+                v.setX(0.0f);
+                v.setZ(0.0f);
             } 
             else 
             {
-                v.x = 0.0f;
-                v.z = 6.0f;
+                v.setX(0.0f);
+                v.setZ(6.0f);
             }
             
+            v.setY(0.7f);
 
-            v.y = 0.7f;
-
-            pos(v);
+            SetPosition(v);
         }
 
         void Player::Pulse()
@@ -49,9 +48,10 @@ namespace msgame
             m.playerId = id_;
             m.playerName = name_;
             m.side = number_ % 2 == 0 ? 1 : 2;
-            m.curPos.x = pos_.x;
-            m.curPos.y = pos_.y;
-            m.curPos.z = pos_.z;
+            auto pos = GetPosition();
+            m.curPos.x = pos.getX();
+            m.curPos.y = pos.getY();
+            m.curPos.z = pos.getZ();
             return m;
         }
     }
