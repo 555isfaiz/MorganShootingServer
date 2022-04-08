@@ -71,6 +71,9 @@ namespace msutils
 
         ~MSLinkedQueue()
         {
+            if (count_ == 0)
+                return;
+                
             auto ptr = head_.next_;
             while (ptr->next_ != nullptr)
             {
