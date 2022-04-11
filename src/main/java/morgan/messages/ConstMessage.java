@@ -12,13 +12,6 @@ public class ConstMessage implements IConstMessage {
     }
 
     private static void initIdToClass() {
-        classToId.put(BVector2.class, 102);
-        classToId.put(BVector3.class, 103);
-        classToId.put(BPlayer.class, 101);
-        classToId.put(CSLogin.class, 1001);
-        classToId.put(SCJoinGame.class, 1003);
-        classToId.put(SCLogin.class, 1004);
-        classToId.put(SCGameSync.class, 1005);
         classToId.put(CSMove.class, 2001);
         classToId.put(SCMove.class, 2002);
         classToId.put(CSJump.class, 2003);
@@ -26,25 +19,18 @@ public class ConstMessage implements IConstMessage {
         classToId.put(CSDash.class, 2005);
         classToId.put(SCDashStart.class, 2006);
         classToId.put(SCDashStop.class, 2007);
+        classToId.put(BVector2.class, 102);
+        classToId.put(BVector3.class, 103);
+        classToId.put(BPlayer.class, 101);
+        classToId.put(CSLogin.class, 1001);
+        classToId.put(SCJoinGame.class, 1003);
+        classToId.put(SCLogin.class, 1004);
+        classToId.put(SCGameSync.class, 1005);
 
     }
 
     public MessageBase getEmptyMessageById(int id) {
         switch (id){
-            case 102:
-                return new BVector2();
-            case 103:
-                return new BVector3();
-            case 101:
-                return new BPlayer();
-            case 1001:
-                return new CSLogin();
-            case 1003:
-                return new SCJoinGame();
-            case 1004:
-                return new SCLogin();
-            case 1005:
-                return new SCGameSync();
             case 2001:
                 return new CSMove();
             case 2002:
@@ -59,6 +45,20 @@ public class ConstMessage implements IConstMessage {
                 return new SCDashStart();
             case 2007:
                 return new SCDashStop();
+            case 102:
+                return new BVector2();
+            case 103:
+                return new BVector3();
+            case 101:
+                return new BPlayer();
+            case 1001:
+                return new CSLogin();
+            case 1003:
+                return new SCJoinGame();
+            case 1004:
+                return new SCLogin();
+            case 1005:
+                return new SCGameSync();
 
         }
         return null;

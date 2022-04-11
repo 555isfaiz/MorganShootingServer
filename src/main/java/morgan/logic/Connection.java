@@ -40,11 +40,11 @@ public class Connection extends AbstractConnection {
             InputStream in = new InputStream(msgBuf);
             CSLogin loginMsg = in.read();
             _playerId = idMalloc.incrementAndGet();
-            if (loginMsg.isShooter && _playerId % 2 != 0) {
+            if (_playerId % 2 != 0) {
                 //shooter's id should be even
                 _playerId = idMalloc.incrementAndGet();
             }
-            PlayerInfo p = new PlayerInfo(_playerId, _connId, _node.getName(), "player" + _playerId, loginMsg.isShooter);
+            PlayerInfo p = new PlayerInfo(_playerId, _connId, _node.getName(), "player" + _playerId, true);
 
             GlobalPlayerManager.playerLogin_(p);
 

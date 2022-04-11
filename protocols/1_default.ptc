@@ -22,8 +22,7 @@
     },
 
     "CSLogin" : {
-        "msgId" : 1001,
-        "1" : "isShooter$bool"
+        "msgId" : 1001
     },
 
     "SCJoinGame" : {
