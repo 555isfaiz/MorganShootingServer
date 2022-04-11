@@ -26,6 +26,7 @@ CMakeCache.txt
 cmake_install.cmake
 */CTestTestFile.cmake
 */CTestTestfile.cmake
+Makefile
 
 # Visual Studio build files
 *.vcxproj

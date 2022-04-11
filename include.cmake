@@ -17,7 +17,7 @@ INCLUDE_DIRECTORIES("./game/physics")
 INCLUDE_DIRECTORIES("./game/tasks")
 INCLUDE_DIRECTORIES("./msg")
 
-# add_subdirectory("./libs/bullet3")
+add_subdirectory("./libs/bullet3")
 
 INCLUDE_DIRECTORIES("./libs/bullet3/src")
 INCLUDE_DIRECTORIES("./libs/json")
