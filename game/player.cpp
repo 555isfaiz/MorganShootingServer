@@ -34,6 +34,7 @@ namespace msgame
             }
             
             v.setY(0.7f);
+            bt_cobj = new btCollisionObject();
 
             SetPosition(v);
         }
