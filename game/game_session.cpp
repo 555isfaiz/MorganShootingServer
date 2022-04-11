@@ -99,17 +99,6 @@ namespace msgame
                 std::string name = names.at(i);
 
                 int32 number = id % 2;
-
-                // rand:
-                // number = rand() % 4 + 1;
-                // if (index[number - 1] == 1)
-                // {
-                //     goto rand;
-                // } 
-                // else
-                // {
-                //     index[number - 1] = 1;
-                // }
                 
                 GAMEOBJECT::Player *p = new GAMEOBJECT::Player(id, name, number);
                 bt_world->addCollisionObject(p->GetCollisionObject());
@@ -150,6 +139,9 @@ namespace msgame
         void GameSession::RemovePlayer(int32 id)
         {
             players_.erase(id);
+
+            msgame::gameobject::Player *player = players_[id];
+            delete player;
 
             // sync to client
         }

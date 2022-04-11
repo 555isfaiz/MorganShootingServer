@@ -8,8 +8,11 @@
 #include "ms_simple_task.h"
 #include "LinearMath/btVector3.h"
 #include "BulletCollision/CollisionDispatch/btCollisionObject.h"
+#include "BulletCollision/CollisionShapes/btSphereShape.h"
 
 #define GAMEOBJECT msgame::gameobject
+
+static btCollisionShape *bt_sphere = new btSphereShape(btScalar(0.5f));
 
 namespace msgame
 {
@@ -21,8 +24,10 @@ namespace msgame
             int32 id_;
             std::string name_;
             btCollisionObject *bt_cobj;
-
+            
         public:
+            
+
             int32 number_;
             Player(int32 id, std::string &name, int32 side);
             virtual ~Player() {}

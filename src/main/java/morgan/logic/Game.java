@@ -57,12 +57,11 @@ public class Game extends Worker {
             return;
 
         var p = _players.remove(id);
+        _ntvGame.removePlayer(id);
         if (_players.size() == 0) {
             gameEnded_ = true;
             _ntvGame.destroy();
             GameManager.sessionDestroy_(sessionId_);
-        } else {
-            _ntvGame.removePlayer(id);
         }
 
         if (!logOut){

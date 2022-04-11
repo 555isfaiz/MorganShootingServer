@@ -17,7 +17,7 @@ public class Connection extends AbstractConnection {
     public static final int CONNECTION_STATE_WAITING = 0;
     public static final int CONNECTION_STATE_GAMING = 1;
 
-    private int _playerId;
+    private int _playerId;      // written in Connection now. change this later
     private int _state;   //0: in lobby 1: in game
     private int _sessionId;    //lobbyId or gamesessionId
 
@@ -40,10 +40,10 @@ public class Connection extends AbstractConnection {
             InputStream in = new InputStream(msgBuf);
             CSLogin loginMsg = in.read();
             _playerId = idMalloc.incrementAndGet();
-            if (_playerId % 2 != 0) {
-                //shooter's id should be even
-                _playerId = idMalloc.incrementAndGet();
-            }
+//            if (_playerId % 2 != 0) {
+//                //shooter's id should be even
+//                _playerId = idMalloc.incrementAndGet();
+//            }
             PlayerInfo p = new PlayerInfo(_playerId, _connId, _node.getName(), "player" + _playerId, true);
 
             GlobalPlayerManager.playerLogin_(p);
