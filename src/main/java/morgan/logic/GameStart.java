@@ -11,8 +11,13 @@ import morgan.support.NtvFunctions;
 
 public class GameStart {
     static {
-//        System.load(System.getProperty("user.dir") + "/morgan-shooting/build/libnativeshooting.dylib");
-        System.load(System.getProperty("user.dir") + "/MorganShootingServer/build/libnativeshooting.so");
+        var os = System.getProperty("os.name").toLowerCase();
+        if (os.startsWith("mac")) {
+            System.load(System.getProperty("user.dir") + "/morgan-shooting/build/libnativeshooting.dylib");
+        }
+        else if (os.startsWith("linux")) {
+            System.load(System.getProperty("user.dir") + "/MorganShootingServer/build/libnativeshooting.so");
+        }
     }
     public static void main(String[] args){
         Node node = new Node("morgan", "tcp://127.0.0.1:3320");
