@@ -34,7 +34,8 @@
 
     "SCLogin" : {
         "msgId" : 1004,
-        "1" : "playerId$int"
+        "1" : "playerId$int",
+        "2" : "serverTimeZone$long"
     },
 
     "SCGameSync" : {

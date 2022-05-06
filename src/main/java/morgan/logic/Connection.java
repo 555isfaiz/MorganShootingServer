@@ -7,6 +7,7 @@ import morgan.messages.SCLogin;
 import morgan.structure.Node;
 import morgan.structure.serialize.InputStream;
 import morgan.support.Log;
+import morgan.support.Time;
 import morgan.support.Utils;
 import morgan.support.functions.Function2;
 
@@ -50,6 +51,7 @@ public class Connection extends AbstractConnection {
 
             SCLogin m = new SCLogin();
             m.playerId = _playerId;
+            m.serverTimeZone = Time.getTimeZoneOffset();
             sendMsg(m);
 
             return;

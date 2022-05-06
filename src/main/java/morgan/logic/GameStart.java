@@ -8,6 +8,7 @@ import morgan.structure.Worker;
 import morgan.support.ConstDistrClass;
 import morgan.support.Factory;
 import morgan.support.NtvFunctions;
+import morgan.support.Time;
 
 public class GameStart {
     static {

@@ -2,6 +2,7 @@
 #include "game_session.h"
 #include "ms_logger.h"
 #include "jniUtils.h"
+#include "game_params.h"
 
 namespace msgame
 {
@@ -160,6 +161,16 @@ namespace msgame
         void GameSession::HandleMsg(int32 senderId, msmessage::MessageBase* msg)
         {
             msgHandler_->Handle(senderId, msg);
+        }
+
+        void GameSession::CalcMovePos(int64 senderId, btVector3 direction, int64 duration, btVector3& finalPos)
+        {
+            // check collide maybe...
+
+            GAMEOBJECT::Player *player = GetPlayer(senderId);
+            finalPos.setX(player->GetPosition().x() + direction.x() * duration * move_speed); 
+            finalPos.setY(player->GetPosition().y());
+            finalPos.setZ(player->GetPosition().z() + direction.z() * duration * move_speed);
         }
 
         GameSession::~GameSession()

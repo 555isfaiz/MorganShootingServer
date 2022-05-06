@@ -52,6 +52,7 @@ namespace msgame
             void Pulse();
             inline void AddOnceTask(msutils::MSSimpleTask t) { oncePipe_.Push(t); }
             inline void AddLongTask(msutils::MSSimpleTask* t) { longPipe_.push_back(t); }
+
             void AddPlayer(int32 id, std::string& name);
             void InitGame(std::vector<int32>& ids, std::vector<std::string>& names);
             std::vector<int32> GetPlayerIds();
@@ -64,6 +65,7 @@ namespace msgame
             void SendMsg(std::vector<int32>& ids, msmessage::MessageBase *msg);
             void HandleMsg(int32 senderId, msmessage::MessageBase* msg);
 
+            void CalcMovePos(int64 senderId, btVector3 direction, int64 duration, btVector3& finalPos);
             GameSession(int32 sessionId_);
             virtual ~GameSession();
         };

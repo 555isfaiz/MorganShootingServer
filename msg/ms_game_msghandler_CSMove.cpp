@@ -2,6 +2,7 @@
 #include "game_session.h"
 #include "ms_logger.h"
 #include "ms_utils.h"
+#include "game_params.h"
 
 namespace msmessage
 {
@@ -25,41 +26,42 @@ namespace msmessage
             auto scmove = new SCMove;
 
             // if ping is higher than 200ms
-            // if (deltaTime > 200)
-            // {
-            //     //discard this movement
-            //     finalPos = posBefore;
-            //     scmove->result = 2;
-            // }
-            // else
-            // {
-            //     int32 collideId = 0;
-            //     checkRes = owner->MovementCheck(senderId, direction, collideId);
-            //     if (checkRes != -2 && checkRes != 0)
-            //     {
-            //         float dist = VECTOR::Distance(player->pos(), posCli);
-            //         if (dist <= 1)
-            //         {
-            //             finalPos = posCli;
-            //         }
-            //         else
-            //         {
-            //             finalPos = player->pos();
-            //         }
-            //         goto end;
-            //     }
+            if (deltaTime > 200)
+            {
+                //discard this movement
+                finalPos = posBefore;
+                scmove->result = 2;
+            }
+            else
+            {
+                int32 collideId = 0;
+                // checkRes = owner->MovementCheck(senderId, direction, collideId);
+                // if (checkRes != -2 && checkRes != 0)
+                // {
+                //     float dist = VECTOR::Distance(player->pos(), posCli);
+                //     if (dist <= 1)
+                //     {
+                //         finalPos = posCli;
+                //     }
+                //     else
+                //     {
+                //         finalPos = player->pos();
+                //     }
+                //     goto end;
+                // }
                 
-            //     VECTOR::Vector3 calPos = owner->CalcMovePos(senderId, direction, collideId);
-            //     //pull back if the plane distance of calculated pos and client pos is bigger than 1
-            //     if (VECTOR::Distance(calPos.TwoDlize(), posCli.TwoDlize()) > 1) //TBD
-            //     {
-            //         finalPos = calPos;
-            //     }
-            //     else
-            //     {
-            //         finalPos = posCli;
-            //     }
-            // }
+                btVector3 calPos;
+                owner->CalcMovePos(senderId, direction, deltaTime, calPos);
+                //pull back if the plane distance of calculated pos and client pos is bigger than 1
+                if (calPos.distance(posCli) > 1) //TBD
+                {
+                    finalPos = calPos;
+                }
+                else
+                {
+                    finalPos = posCli;
+                }
+            }
             
             // mLogInfo("pos from client, x:"<<msg.curPos.x<<" y:"<<msg.curPos.y<<" z:"<<msg.curPos.z<<", finalPos, x:"<<finalPos.x<<" y:"<<finalPos.y<<" z:"<<finalPos.z);
             player->SetPosition(finalPos); 
