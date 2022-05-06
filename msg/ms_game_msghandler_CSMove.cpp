@@ -35,23 +35,9 @@ namespace msmessage
             else
             {
                 int32 collideId = 0;
-                // checkRes = owner->MovementCheck(senderId, direction, collideId);
-                // if (checkRes != -2 && checkRes != 0)
-                // {
-                //     float dist = VECTOR::Distance(player->pos(), posCli);
-                //     if (dist <= 1)
-                //     {
-                //         finalPos = posCli;
-                //     }
-                //     else
-                //     {
-                //         finalPos = player->pos();
-                //     }
-                //     goto end;
-                // }
                 
                 btVector3 calPos;
-                owner->CalcMovePos(senderId, direction, deltaTime, calPos);
+                owner->CalcMovePos(senderId, direction, deltaTime + MOVE_DELTA, calPos);
                 //pull back if the plane distance of calculated pos and client pos is bigger than 1
                 if (calPos.distance(posCli) > 1) //TBD
                 {

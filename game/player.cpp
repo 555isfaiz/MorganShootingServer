@@ -14,7 +14,7 @@ namespace msgame
             if (number_ == 0)
             {
                 v.setX(0.0f);
-                v.setZ(0.0f);
+                v.setZ(-6.0f);
             } 
             else 
             {

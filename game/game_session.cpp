@@ -168,9 +168,14 @@ namespace msgame
             // check collide maybe...
 
             GAMEOBJECT::Player *player = GetPlayer(senderId);
-            finalPos.setX(player->GetPosition().x() + direction.x() * duration * move_speed); 
-            finalPos.setY(player->GetPosition().y());
-            finalPos.setZ(player->GetPosition().z() + direction.z() * duration * move_speed);
+            float distance = MOVE_SPEED * duration / 1000;
+            // if (distance <= 0.0000f)
+            //     return;
+
+            float dirLen = direction.length();
+            finalPos.setX(distance / dirLen * direction.x() + player->GetPosition().x());
+            finalPos.setY(distance / dirLen * direction.y() + player->GetPosition().y());
+            finalPos.setZ(distance / dirLen * direction.z() + player->GetPosition().z());
         }
 
         GameSession::~GameSession()
