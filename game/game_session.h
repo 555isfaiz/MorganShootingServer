@@ -66,6 +66,8 @@ namespace msgame
             void HandleMsg(int32 senderId, msmessage::MessageBase* msg);
 
             void CalcMovePos(int64 senderId, btVector3 direction, int64 duration, btVector3& finalPos);
+            void AddJumpTask(int64 playerId, int64 jumpStart);
+
             GameSession(int32 sessionId_);
             virtual ~GameSession();
         };

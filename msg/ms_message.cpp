@@ -5,126 +5,6 @@
 
 namespace msmessage
 {
-    void BVector2::write(STREAM::OutputStream* out)
-    {
-        out->write(x);
-        out->write(y);
-
-    }
-
-    void BVector2::read(STREAM::InputStream* in)
-    {
-        x = in->ReadFloat();
-        y = in->ReadFloat();
-
-    }
-
-    void BVector3::write(STREAM::OutputStream* out)
-    {
-        out->write(x);
-        out->write(y);
-        out->write(z);
-
-    }
-
-    void BVector3::read(STREAM::InputStream* in)
-    {
-        x = in->ReadFloat();
-        y = in->ReadFloat();
-        z = in->ReadFloat();
-
-    }
-
-    void BPlayer::write(STREAM::OutputStream* out)
-    {
-        out->write(playerId);
-        out->write(playerName);
-        out->write(side);
-        out->write(&curPos);
-
-    }
-
-    void BPlayer::read(STREAM::InputStream* in)
-    {
-        playerId = in->ReadInt32();
-        playerName = in->ReadString();
-        side = in->ReadInt32();
-        curPos = *reinterpret_cast<BVector3*>(in->ReadMsg());
-
-    }
-
-    void CSLogin::write(STREAM::OutputStream* out)
-    {
-        out->write(isShooter);
-
-    }
-
-    void CSLogin::read(STREAM::InputStream* in)
-    {
-        isShooter = in->ReadBool();
-
-    }
-
-    void SCJoinGame::write(STREAM::OutputStream* out)
-    {
-        out->write(sessionId);
-        out->write(mySide);
-        auto b = out->ResolveNumber(players.size());
-        out->WriteTandVL(STREAM::TYPE_LIST, b[0], b + 1);
-        for (auto t : players)
-        {
-            out->write(&t);
-        }
-    }
-
-    void SCJoinGame::read(STREAM::InputStream* in)
-    {
-        sessionId = in->ReadInt32();
-        mySide = in->ReadInt32();
-        auto fb = in->readV(1)[0];
-        int32 length = in->ResolveNumber((fb & 0xF0) >> 4);
-        for (int32 i = 0; i < length; i++)
-        {
-            players.push_back(*reinterpret_cast<BPlayer*>(in->ReadMsg()));
-        }
-
-    }
-
-    void SCLogin::write(STREAM::OutputStream* out)
-    {
-        out->write(playerId);
-
-    }
-
-    void SCLogin::read(STREAM::InputStream* in)
-    {
-        playerId = in->ReadInt32();
-
-    }
-
-    void SCGameSync::write(STREAM::OutputStream* out)
-    {
-        out->write(sessionId);
-        auto b = out->ResolveNumber(players.size());
-        out->WriteTandVL(STREAM::TYPE_LIST, b[0], b + 1);
-        for (auto t : players)
-        {
-            out->write(&t);
-        }
-    }
-
-    void SCGameSync::read(STREAM::InputStream* in)
-    {
-        sessionId = in->ReadInt32();
-        auto fb = in->readV(1)[0];
-        int32 length = in->ResolveNumber((fb & 0xF0) >> 4);
-        for (int32 i = 0; i < length; i++)
-        {
-            players.push_back(*reinterpret_cast<BPlayer*>(in->ReadMsg()));
-        }
-
-    }
-
     void CSMove::write(STREAM::OutputStream* out)
     {
         out->write(playerId);
@@ -166,12 +46,14 @@ namespace msmessage
     void CSJump::write(STREAM::OutputStream* out)
     {
         out->write(playerId);
+        out->write(jumpStart);
 
     }
 
     void CSJump::read(STREAM::InputStream* in)
     {
         playerId = in->ReadInt32();
+        jumpStart = in->ReadInt64();
 
     }
 
@@ -229,6 +111,126 @@ namespace msmessage
 
     }
 
+    void BVector2::write(STREAM::OutputStream* out)
+    {
+        out->write(x);
+        out->write(y);
+
+    }
+
+    void BVector2::read(STREAM::InputStream* in)
+    {
+        x = in->ReadFloat();
+        y = in->ReadFloat();
+
+    }
+
+    void BVector3::write(STREAM::OutputStream* out)
+    {
+        out->write(x);
+        out->write(y);
+        out->write(z);
+
+    }
+
+    void BVector3::read(STREAM::InputStream* in)
+    {
+        x = in->ReadFloat();
+        y = in->ReadFloat();
+        z = in->ReadFloat();
+
+    }
+
+    void BPlayer::write(STREAM::OutputStream* out)
+    {
+        out->write(playerId);
+        out->write(playerName);
+        out->write(side);
+        out->write(&curPos);
+
+    }
+
+    void BPlayer::read(STREAM::InputStream* in)
+    {
+        playerId = in->ReadInt32();
+        playerName = in->ReadString();
+        side = in->ReadInt32();
+        curPos = *reinterpret_cast<BVector3*>(in->ReadMsg());
+
+    }
+
+    void CSLogin::write(STREAM::OutputStream* out)
+    {
+
+    }
+
+    void CSLogin::read(STREAM::InputStream* in)
+    {
+
+    }
+
+    void SCJoinGame::write(STREAM::OutputStream* out)
+    {
+        out->write(sessionId);
+        out->write(mySide);
+        auto b = out->ResolveNumber(players.size());
+        out->WriteTandVL(STREAM::TYPE_LIST, b[0], b + 1);
+        for (auto t : players)
+        {
+            out->write(&t);
+        }
+    }
+
+    void SCJoinGame::read(STREAM::InputStream* in)
+    {
+        sessionId = in->ReadInt32();
+        mySide = in->ReadInt32();
+        auto fb = in->readV(1)[0];
+        int32 length = in->ResolveNumber((fb & 0xF0) >> 4);
+        for (int32 i = 0; i < length; i++)
+        {
+            players.push_back(*reinterpret_cast<BPlayer*>(in->ReadMsg()));
+        }
+
+    }
+
+    void SCLogin::write(STREAM::OutputStream* out)
+    {
+        out->write(playerId);
+        out->write(serverTimeZone);
+
+    }
+
+    void SCLogin::read(STREAM::InputStream* in)
+    {
+        playerId = in->ReadInt32();
+        serverTimeZone = in->ReadInt64();
+
+    }
+
+    void SCGameSync::write(STREAM::OutputStream* out)
+    {
+        out->write(sessionId);
+        auto b = out->ResolveNumber(players.size());
+        out->WriteTandVL(STREAM::TYPE_LIST, b[0], b + 1);
+        for (auto t : players)
+        {
+            out->write(&t);
+        }
+    }
+
+    void SCGameSync::read(STREAM::InputStream* in)
+    {
+        sessionId = in->ReadInt32();
+        auto fb = in->readV(1)[0];
+        int32 length = in->ResolveNumber((fb & 0xF0) >> 4);
+        for (int32 i = 0; i < length; i++)
+        {
+            players.push_back(*reinterpret_cast<BPlayer*>(in->ReadMsg()));
+        }
+
+    }
+
 
     //InputStream.ReadMsg need a instance of the message
     //dont want to override operator '=' for all messages
@@ -238,48 +240,6 @@ namespace msmessage
     {
         switch (id)
         {
-            case 102:
-            {
-                msmessage::BVector2 *bvector2 = new msmessage::BVector2;
-                return bvector2;
-            }
-
-            case 103:
-            {
-                msmessage::BVector3 *bvector3 = new msmessage::BVector3;
-                return bvector3;
-            }
-
-            case 101:
-            {
-                msmessage::BPlayer *bplayer = new msmessage::BPlayer;
-                return bplayer;
-            }
-
-            case 1001:
-            {
-                msmessage::CSLogin *cslogin = new msmessage::CSLogin;
-                return cslogin;
-            }
-
-            case 1003:
-            {
-                msmessage::SCJoinGame *scjoingame = new msmessage::SCJoinGame;
-                return scjoingame;
-            }
-
-            case 1004:
-            {
-                msmessage::SCLogin *sclogin = new msmessage::SCLogin;
-                return sclogin;
-            }
-
-            case 1005:
-            {
-                msmessage::SCGameSync *scgamesync = new msmessage::SCGameSync;
-                return scgamesync;
-            }
-
             case 2001:
             {
                 msmessage::CSMove *csmove = new msmessage::CSMove;
@@ -320,6 +280,48 @@ namespace msmessage
             {
                 msmessage::SCDashStop *scdashstop = new msmessage::SCDashStop;
                 return scdashstop;
+            }
+
+            case 102:
+            {
+                msmessage::BVector2 *bvector2 = new msmessage::BVector2;
+                return bvector2;
+            }
+
+            case 103:
+            {
+                msmessage::BVector3 *bvector3 = new msmessage::BVector3;
+                return bvector3;
+            }
+
+            case 101:
+            {
+                msmessage::BPlayer *bplayer = new msmessage::BPlayer;
+                return bplayer;
+            }
+
+            case 1001:
+            {
+                msmessage::CSLogin *cslogin = new msmessage::CSLogin;
+                return cslogin;
+            }
+
+            case 1003:
+            {
+                msmessage::SCJoinGame *scjoingame = new msmessage::SCJoinGame;
+                return scjoingame;
+            }
+
+            case 1004:
+            {
+                msmessage::SCLogin *sclogin = new msmessage::SCLogin;
+                return sclogin;
+            }
+
+            case 1005:
+            {
+                msmessage::SCGameSync *scgamesync = new msmessage::SCGameSync;
+                return scgamesync;
             }
 
 

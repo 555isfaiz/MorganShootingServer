@@ -3,6 +3,7 @@
 #include "ms_logger.h"
 #include "jniUtils.h"
 #include "game_params.h"
+#include "ms_jump_task.h"
 
 namespace msgame
 {
@@ -16,6 +17,7 @@ namespace msgame
             bt_collision_dispatcher = new btCollisionDispatcher(bt_collision_config);
             bt_overlap_pair_cache = new btDbvtBroadphase();
             bt_world = new btCollisionWorld(bt_collision_dispatcher, bt_overlap_pair_cache, bt_collision_config);
+            bt_world->performDiscreteCollisionDetection();
             msgHandler_ = new msmessage::handler::GameMsgHandler(this);
             createTime_ = msutils::GetNowMillSec();
         }
@@ -176,6 +178,12 @@ namespace msgame
             finalPos.setX(distance / dirLen * direction.x() + player->GetPosition().x());
             finalPos.setY(distance / dirLen * direction.y() + player->GetPosition().y());
             finalPos.setZ(distance / dirLen * direction.z() + player->GetPosition().z());
+        }
+
+        void GameSession::AddJumpTask(int64 playerId, int64 jumpStart)
+        {
+            GAMETASKS::JumpTask *task = new GAMETASKS::JumpTask(this, playerId, jumpStart);
+            AddLongTask(task);
         }
 
         GameSession::~GameSession()

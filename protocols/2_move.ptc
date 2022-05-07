@@ -18,7 +18,8 @@
 
     "CSJump" : {
         "msgId" : 2003,
-        "1" : "playerId$int"
+        "1" : "playerId$int",
+        "2" : "jumpStart$long"
     },
 
     "SCJump" : {

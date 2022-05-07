@@ -26,7 +26,7 @@ namespace msmessage
         virtual ~MessageBase(){}
     };
 
-    class BVector2 : public MessageBase 
+        class BVector2 : public MessageBase 
     {
     public:
         float x;
@@ -49,67 +49,6 @@ namespace msmessage
         void read(msutils::msstream::InputStream* in) override ;
         BVector3(){ id = 103; }
         virtual ~BVector3(){}
-    };
-
-    class BPlayer : public MessageBase 
-    {
-    public:
-        int32 playerId;
-        std::string playerName;
-        int32 side;
-        BVector3 curPos;
-
-        void write(msutils::msstream::OutputStream* out) override ;
-        void read(msutils::msstream::InputStream* in) override ;
-        BPlayer(){ id = 101; }
-        virtual ~BPlayer(){}
-    };
-
-    class CSLogin : public MessageBase 
-    {
-    public:
-        bool isShooter;
-
-        void write(msutils::msstream::OutputStream* out) override ;
-        void read(msutils::msstream::InputStream* in) override ;
-        CSLogin(){ id = 1001; }
-        virtual ~CSLogin(){}
-    };
-
-    class SCJoinGame : public MessageBase 
-    {
-    public:
-        int32 sessionId;
-        int32 mySide;
-        std::vector<BPlayer> players;
-
-        void write(msutils::msstream::OutputStream* out) override ;
-        void read(msutils::msstream::InputStream* in) override ;
-        SCJoinGame(){ id = 1003; }
-        virtual ~SCJoinGame(){}
-    };
-
-    class SCLogin : public MessageBase 
-    {
-    public:
-        int32 playerId;
-
-        void write(msutils::msstream::OutputStream* out) override ;
-        void read(msutils::msstream::InputStream* in) override ;
-        SCLogin(){ id = 1004; }
-        virtual ~SCLogin(){}
-    };
-
-    class SCGameSync : public MessageBase 
-    {
-    public:
-        int32 sessionId;
-        std::vector<BPlayer> players;
-
-        void write(msutils::msstream::OutputStream* out) override ;
-        void read(msutils::msstream::InputStream* in) override ;
-        SCGameSync(){ id = 1005; }
-        virtual ~SCGameSync(){}
     };
 
     class CSMove : public MessageBase 
@@ -145,6 +84,7 @@ namespace msmessage
     {
     public:
         int32 playerId;
+        int64 jumpStart;
 
         void write(msutils::msstream::OutputStream* out) override ;
         void read(msutils::msstream::InputStream* in) override ;
@@ -197,6 +137,67 @@ namespace msmessage
         void read(msutils::msstream::InputStream* in) override ;
         SCDashStop(){ id = 2007; }
         virtual ~SCDashStop(){}
+    };
+
+    class BPlayer : public MessageBase 
+    {
+    public:
+        int32 playerId;
+        std::string playerName;
+        int32 side;
+        BVector3 curPos;
+
+        void write(msutils::msstream::OutputStream* out) override ;
+        void read(msutils::msstream::InputStream* in) override ;
+        BPlayer(){ id = 101; }
+        virtual ~BPlayer(){}
+    };
+
+    class CSLogin : public MessageBase 
+    {
+    public:
+
+        void write(msutils::msstream::OutputStream* out) override ;
+        void read(msutils::msstream::InputStream* in) override ;
+        CSLogin(){ id = 1001; }
+        virtual ~CSLogin(){}
+    };
+
+    class SCJoinGame : public MessageBase 
+    {
+    public:
+        int32 sessionId;
+        int32 mySide;
+        std::vector<BPlayer> players;
+
+        void write(msutils::msstream::OutputStream* out) override ;
+        void read(msutils::msstream::InputStream* in) override ;
+        SCJoinGame(){ id = 1003; }
+        virtual ~SCJoinGame(){}
+    };
+
+    class SCLogin : public MessageBase 
+    {
+    public:
+        int32 playerId;
+        int64 serverTimeZone;
+
+        void write(msutils::msstream::OutputStream* out) override ;
+        void read(msutils::msstream::InputStream* in) override ;
+        SCLogin(){ id = 1004; }
+        virtual ~SCLogin(){}
+    };
+
+    class SCGameSync : public MessageBase 
+    {
+    public:
+        int32 sessionId;
+        std::vector<BPlayer> players;
+
+        void write(msutils::msstream::OutputStream* out) override ;
+        void read(msutils::msstream::InputStream* in) override ;
+        SCGameSync(){ id = 1005; }
+        virtual ~SCGameSync(){}
     };
 
 
