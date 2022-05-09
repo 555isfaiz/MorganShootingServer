@@ -5,7 +5,7 @@ namespace msmessage
 {
     namespace handler
     {
-        void GameMsgHandler::Handle(int64 senderId, CSJump& msg)
+        void GameMsgHandler::Handle(int32 senderId, CSJump& msg)
         {
             owner->AddJumpTask(senderId, msg.jumpStart);
             auto scjump = new SCJump();

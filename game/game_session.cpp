@@ -165,7 +165,7 @@ namespace msgame
             msgHandler_->Handle(senderId, msg);
         }
 
-        void GameSession::CalcMovePos(int64 senderId, btVector3 direction, int64 duration, btVector3& finalPos)
+        void GameSession::CalcMovePos(int32 senderId, btVector3 direction, int64 duration, btVector3& finalPos)
         {
             // check collide maybe...
 
@@ -180,7 +180,7 @@ namespace msgame
             finalPos.setZ(distance / dirLen * direction.z() + player->GetPosition().z());
         }
 
-        void GameSession::AddJumpTask(int64 playerId, int64 jumpStart)
+        void GameSession::AddJumpTask(int32 playerId, int64 jumpStart)
         {
             GAMETASKS::JumpTask *task = new GAMETASKS::JumpTask(this, playerId, jumpStart);
             AddLongTask(task);

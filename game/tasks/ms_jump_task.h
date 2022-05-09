@@ -13,14 +13,14 @@ namespace msgame
         class JumpTask : public msutils::MSSimpleTask
         {
         private:
-            int64 playerId_;
+            int32 playerId_;
             int64 jumpStart_;
 
         public:
             void Execute() override;
             void OnFinished() override;
 
-            JumpTask(GAMESESSION::GameSession* game, int64 playerId, int64 jumpStart);
+            JumpTask(GAMESESSION::GameSession* game, int32 playerId, int64 jumpStart);
             virtual ~JumpTask() {}
         };
     } // namespace gametasks

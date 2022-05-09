@@ -5,11 +5,12 @@ namespace msgame
 {
     namespace gametasks
     {
-        JumpTask::JumpTask(GAMESESSION::GameSession* game, int64 playerId, int64 jumpStart)
+        JumpTask::JumpTask(GAMESESSION::GameSession* game, int32 playerId, int64 jumpStart)
         : msutils::MSSimpleTask(game)
         , playerId_(playerId)
         , jumpStart_(jumpStart)
         {
+            auto player = game->GetPlayer(playerId);
         }
 
         void JumpTask::Execute()

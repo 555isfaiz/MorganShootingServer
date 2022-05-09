@@ -5,7 +5,7 @@ namespace msmessage
 {
     namespace handler
     {
-        void GameMsgHandler::Handle(int64 senderId, MessageBase *msg)
+        void GameMsgHandler::Handle(int32 senderId, MessageBase *msg)
         {
             if (senderId == 0 || msg == NULL)
             {

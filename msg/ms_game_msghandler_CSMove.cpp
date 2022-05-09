@@ -8,7 +8,7 @@ namespace msmessage
 {
     namespace handler
     {
-        void GameMsgHandler::Handle(int64 senderId, CSMove& msg)
+        void GameMsgHandler::Handle(int32 senderId, CSMove& msg)
         {
             //check move 
 

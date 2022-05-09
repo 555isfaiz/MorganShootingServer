@@ -7,7 +7,7 @@ namespace msmessage
 {
     namespace handler
     {
-        void GameMsgHandler::Handle(int64 senderId, CSDash& msg)
+        void GameMsgHandler::Handle(int32 senderId, CSDash& msg)
         {
             VECTOR::Vector3 direction(msg.direction);
             int64 duration = msg.duration;

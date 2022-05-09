@@ -23,11 +23,11 @@ namespace msmessage
         private:
             msgame::msgamesession::GameSession* owner;
         public:
-            void Handle(int64 senderId, MessageBase *msg);
+            void Handle(int32 senderId, MessageBase *msg);
         public:
-            void Handle(int64 senderId, CSMove& msg);
-            void Handle(int64 senderId, CSJump& msg);
-            void Handle(int64 senderId, CSDash& msg);
+            void Handle(int32 senderId, CSMove& msg);
+            void Handle(int32 senderId, CSJump& msg);
+            void Handle(int32 senderId, CSDash& msg);
             GameMsgHandler(msgame::msgamesession::GameSession* owner) : owner(owner) {}
             virtual ~GameMsgHandler(){}
         };
