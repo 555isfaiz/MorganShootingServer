@@ -15,6 +15,7 @@ namespace msgame
         private:
             int32 playerId_;
             int64 jumpStart_;
+            int64 lastExec_ = 0;
 
         public:
             void Execute() override;

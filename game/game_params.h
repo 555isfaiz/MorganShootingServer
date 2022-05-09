@@ -3,6 +3,7 @@
 
 #include "ms_types.h"
 
+#define INIT_ORIGIN_Y               0.7f
 #define PLAYER_RADIUS               0.6f
 #define MOVE_SPEED                  5.0f         // 5.0f equals to move speed in client, 
 #define MOVE_DELTA                  20           // 20 equals to frame time in unity

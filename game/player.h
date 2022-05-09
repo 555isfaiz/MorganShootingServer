@@ -38,7 +38,7 @@ namespace msgame
             inline int32 id() { return id_; }
             inline void id(int32 id) { id_ = id; }
 
-            void SetPosition(btVector3 &position) 
+            void SetPosition(const btVector3 &position) 
             {
                 bt_cobj->getWorldTransform().setOrigin(position);
             }
@@ -46,6 +46,16 @@ namespace msgame
             btVector3 GetPosition() const
             {
                 return bt_cobj->getWorldTransform().getOrigin(); 
+            }
+
+            void SetVelocity(const btVector3 &velocity)
+            {
+                bt_cobj->setInterpolationLinearVelocity(velocity);
+            }
+
+            btVector3 GetVelocity() const
+            {
+                return bt_cobj->getInterpolationLinearVelocity(); 
             }
 
             btCollisionObject *GetCollisionObject() const

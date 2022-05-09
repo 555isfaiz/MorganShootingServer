@@ -38,7 +38,9 @@ namespace msgame
                 if ((*iter)->IsFinished())
                 {
                     (*iter)->OnFinished();
+                    auto ptr = (*iter);
                     iter = longPipe_.erase(iter);
+                    delete ptr;
                     continue;
                 }
                 iter++;
