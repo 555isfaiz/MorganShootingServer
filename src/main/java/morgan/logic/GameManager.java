@@ -38,7 +38,7 @@ public class GameManager extends Worker {
         int sessionId = idAllocate.getAndIncrement();
         sessions.add(sessionId);
         Game g = new Game(_node, sessionId);
-        g.setWorkerFrequency(50);
+        g.setWorkerFrequency(100);
         g.initGame(players);
         _node.addWorker(g);
 

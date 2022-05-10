@@ -24,6 +24,9 @@ namespace msgame
             int32 id_;
             std::string name_;
             btCollisionObject *bt_cobj;
+
+            int32 jumpPhase_;
+            int64 jumpStart_;
             
         public:
             
@@ -62,6 +65,11 @@ namespace msgame
             {
                 return bt_cobj;
             }
+
+            inline int32 GetJumpPhase() { return jumpPhase_; }
+            inline void SetJumpPhase(int32 phase) { jumpPhase_ = phase; }
+            inline int64 GetJumpStart() { return jumpStart_; }
+            inline void SetJumpStart(int64 startTime) { jumpStart_ = startTime; }
         };
     } // namespace gameobject
 } // namespace msgame
