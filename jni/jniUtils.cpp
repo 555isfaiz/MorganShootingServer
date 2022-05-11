@@ -91,6 +91,7 @@ void msJniUtils::sendMsg(msgame::msgamesession::GameSession* game, int32 id, msm
     env->ReleaseByteArrayElements(jbuf, ptr, JNI_COMMIT);
     env->CallVoidMethod(NtvFuncs, NtvFuncs_sendMsg, (jobject)game->GetJvObj(), id, jbuf);
     env->DeleteLocalRef(jbuf);
+    delete buf;
 }
 
 void msJniUtils::sendMsgMulti(msgame::msgamesession::GameSession* game, std::vector<int32>& ids, msmessage::MessageBase *msg)
@@ -122,4 +123,5 @@ void msJniUtils::sendMsgMulti(msgame::msgamesession::GameSession* game, std::vec
     env->CallVoidMethod(NtvFuncs, NtvFuncs_sendMsgMulti, (jobject)game->GetJvObj(), jids, jbuf);
     env->DeleteLocalRef(jbuf);
     env->DeleteLocalRef(jids);
+    delete buf;
 }

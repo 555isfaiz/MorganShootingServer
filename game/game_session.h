@@ -65,7 +65,7 @@ namespace msgame
             void SendMsg(std::vector<int32>& ids, msmessage::MessageBase *msg);
             void HandleMsg(int32 senderId, msmessage::MessageBase* msg);
 
-            void CalcMovePos(int32 senderId, btVector3 direction, int64 duration, btVector3& finalPos);
+            int32 CalcMovePos(int32 senderId, btVector3 direction, int64 duration, btVector3& finalPos);
             void AddJumpTask(int32 playerId, int64 jumpStart);
 
             GameSession(int32 sessionId_);

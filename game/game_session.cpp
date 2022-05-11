@@ -17,14 +17,13 @@ namespace msgame
             bt_collision_dispatcher = new btCollisionDispatcher(bt_collision_config);
             bt_overlap_pair_cache = new btDbvtBroadphase();
             bt_world = new btCollisionWorld(bt_collision_dispatcher, bt_overlap_pair_cache, bt_collision_config);
-            bt_world->performDiscreteCollisionDetection();
             msgHandler_ = new msmessage::handler::GameMsgHandler(this);
             createTime_ = msutils::GetNowMillSec();
         }
 
         void GameSession::Pulse()
         {
-            bt_world->updateAabbs();
+            bt_world->performDiscreteCollisionDetection();
             while (!oncePipe_.IsEmpty())
             {
                 auto t = oncePipe_.Pop();
@@ -167,19 +166,49 @@ namespace msgame
             msgHandler_->Handle(senderId, msg);
         }
 
-        void GameSession::CalcMovePos(int32 senderId, btVector3 direction, int64 duration, btVector3& finalPos)
+        int32 GameSession::CalcMovePos(int32 senderId, btVector3 direction, int64 duration, btVector3& finalPos)
         {
-            // check collide maybe...
-
             GAMEOBJECT::Player *player = GetPlayer(senderId);
+            btVector3 posNow = player->GetPosition();
+
             float distance = MOVE_SPEED * duration / 1000;
-            // if (distance <= 0.0000f)
-            //     return;
 
             float dirLen = direction.length();
-            finalPos.setX(distance / dirLen * direction.x() + player->GetPosition().x());
-            finalPos.setY(distance / dirLen * direction.y() + player->GetPosition().y());
-            finalPos.setZ(distance / dirLen * direction.z() + player->GetPosition().z());
+            btVector3 caledPos(distance / dirLen * direction.x() + posNow.x(), 
+                                distance / dirLen * direction.y() + posNow.y(),
+                                distance / dirLen * direction.z() + posNow.z());
+
+            // check collide
+            int collideBefore = bt_world->getDispatcher()->getNumManifolds();
+            player->SetPosition(caledPos);
+            bt_world->performDiscreteCollisionDetection();
+            int collideAfter = bt_world->getDispatcher()->getNumManifolds();
+            mLogInfo("collide before: " << collideBefore << " collide after: " << collideAfter);
+            if (collideAfter > collideBefore)
+            {
+                finalPos = posNow;
+                return 1;
+            } 
+            else if (collideAfter == collideBefore)
+            {
+                for (int i = 0; i < collideAfter; i++) 
+                {
+                    btPersistentManifold *contactManifold = bt_world->getDispatcher()->getManifoldByIndexInternal(i);
+                    {
+                        const btCollisionObject *objA = contactManifold->getBody0();
+                        const btCollisionObject *objB = contactManifold->getBody1();
+                        if (reinterpret_cast<GAMEOBJECT::Player*>(objA->getUserPointer())->id() == senderId
+                             || reinterpret_cast<GAMEOBJECT::Player*>(objB->getUserPointer())->id() == senderId)
+                        {
+                            finalPos = posNow;
+                            return 1;
+                        }
+                    }
+                }
+            }
+            
+            finalPos = caledPos;
+            return 0;
         }
 
         void GameSession::AddJumpTask(int32 playerId, int64 jumpStart)

@@ -25,6 +25,7 @@ namespace msgame
             v.setY(0.7f);
             bt_cobj = new btCollisionObject();
             bt_cobj->setCollisionShape(bt_sphere);
+            bt_cobj->setUserPointer(this);
 
             SetPosition(v);
         }

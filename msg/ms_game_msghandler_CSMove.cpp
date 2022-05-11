@@ -14,7 +14,7 @@ namespace msmessage
 
             //caculate new pos
             auto player = owner->GetPlayer(msg.playerId);
-            btVector3 posBefore = btVector3(player->GetPosition());
+            btVector3 posBefore = player->GetPosition();
             btVector3 posCli;
             msutils::Msg2Vector3(msg.curPos, posCli);
             btVector3 direction;
@@ -37,9 +37,9 @@ namespace msmessage
                 int32 collideId = 0;
                 
                 btVector3 calPos;
-                owner->CalcMovePos(senderId, direction, deltaTime + MOVE_DELTA, calPos);
+                int32 collide = owner->CalcMovePos(senderId, direction, deltaTime + MOVE_DELTA, calPos);
                 //pull back if the plane distance of calculated pos and client pos is bigger than 1
-                if (calPos.distance(posCli) > 1) //TBD
+                if (collide || calPos.distance(posCli) > 1) //TBD
                 {
                     finalPos = calPos;
                 }
