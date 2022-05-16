@@ -179,33 +179,33 @@ namespace msgame
                                 distance / dirLen * direction.z() + posNow.z());
 
             // check collide
-            int collideBefore = bt_world->getDispatcher()->getNumManifolds();
-            player->SetPosition(caledPos);
-            bt_world->performDiscreteCollisionDetection();
-            int collideAfter = bt_world->getDispatcher()->getNumManifolds();
-            mLogInfo("collide before: " << collideBefore << " collide after: " << collideAfter);
-            if (collideAfter > collideBefore)
-            {
-                finalPos = posNow;
-                return 1;
-            } 
-            else if (collideAfter == collideBefore)
-            {
-                for (int i = 0; i < collideAfter; i++) 
-                {
-                    btPersistentManifold *contactManifold = bt_world->getDispatcher()->getManifoldByIndexInternal(i);
-                    {
-                        const btCollisionObject *objA = contactManifold->getBody0();
-                        const btCollisionObject *objB = contactManifold->getBody1();
-                        if (reinterpret_cast<GAMEOBJECT::Player*>(objA->getUserPointer())->id() == senderId
-                             || reinterpret_cast<GAMEOBJECT::Player*>(objB->getUserPointer())->id() == senderId)
-                        {
-                            finalPos = posNow;
-                            return 1;
-                        }
-                    }
-                }
-            }
+            // int collideBefore = bt_world->getDispatcher()->getNumManifolds();
+            // player->SetPosition(caledPos);
+            // bt_world->performDiscreteCollisionDetection();
+            // int collideAfter = bt_world->getDispatcher()->getNumManifolds();
+            // mLogInfo("collide before: " << collideBefore << " collide after: " << collideAfter);
+            // if (collideAfter > collideBefore)
+            // {
+            //     finalPos = posNow;
+            //     return 1;
+            // } 
+            // else if (collideAfter == collideBefore)
+            // {
+            //     for (int i = 0; i < collideAfter; i++) 
+            //     {
+            //         btPersistentManifold *contactManifold = bt_world->getDispatcher()->getManifoldByIndexInternal(i);
+            //         {
+            //             const btCollisionObject *objA = contactManifold->getBody0();
+            //             const btCollisionObject *objB = contactManifold->getBody1();
+            //             if (reinterpret_cast<GAMEOBJECT::Player*>(objA->getUserPointer())->id() == senderId
+            //                  || reinterpret_cast<GAMEOBJECT::Player*>(objB->getUserPointer())->id() == senderId)
+            //             {
+            //                 finalPos = posNow;
+            //                 return 1;
+            //             }
+            //         }
+            //     }
+            // }
             
             finalPos = caledPos;
             return 0;

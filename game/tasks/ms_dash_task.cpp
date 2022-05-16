@@ -5,7 +5,7 @@ namespace msgame
 {
     namespace gametasks
     {
-        DashTask::DashTask(GAMESESSION::GameSession* game, int32 playerId, int64 duration, VECTOR::Vector3 direction)
+        DashTask::DashTask(GAMESESSION::GameSession* game, int32 playerId, int64 duration, btVector3 direction)
         : msutils::MSSimpleTask(game)
         , direction_(direction)
         , playerId_(playerId)

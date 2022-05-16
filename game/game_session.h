@@ -4,6 +4,7 @@
 #include <vector>
 #include <unordered_map>
 #include "player.h"
+#include "ms_utils.h"
 #include "ms_game_msghandler.h"
 #include "btBulletDynamicsCommon.h"
 #include "LinearMath/btVector3.h"

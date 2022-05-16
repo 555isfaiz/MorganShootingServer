@@ -9,19 +9,19 @@ namespace msmessage
     {
         void GameMsgHandler::Handle(int32 senderId, CSDash& msg)
         {
-            VECTOR::Vector3 direction(msg.direction);
-            int64 duration = msg.duration;
+            // VECTOR::Vector3 direction(msg.direction);
+            // int64 duration = msg.duration;
 
-            // add task
-            GAMETASKS::DashTask* dashTask = new GAMETASKS::DashTask(owner, senderId, duration, direction);
-            owner->AddLongTask(dashTask);
+            // // add task
+            // GAMETASKS::DashTask* dashTask = new GAMETASKS::DashTask(owner, senderId, duration, direction);
+            // owner->AddLongTask(dashTask);
 
-            SCDashStart* scmsg = new SCDashStart;
-            scmsg->playerId = senderId;
-            scmsg->direction = msg.direction;
-            std::vector<int32> ids = owner->GetPlayerIds();
-            owner->SendMsg(ids, scmsg);
-            delete scmsg;
+            // SCDashStart* scmsg = new SCDashStart;
+            // scmsg->playerId = senderId;
+            // scmsg->direction = msg.direction;
+            // std::vector<int32> ids = owner->GetPlayerIds();
+            // owner->SendMsg(ids, scmsg);
+            // delete scmsg;
         }
     }
 }

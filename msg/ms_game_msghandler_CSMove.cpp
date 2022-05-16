@@ -37,7 +37,7 @@ namespace msmessage
                 int32 collideId = 0;
                 
                 btVector3 calPos;
-                int32 collide = owner->CalcMovePos(senderId, direction, deltaTime + MOVE_DELTA, calPos);
+                int32 collide = owner->CalcMovePos(senderId, direction, MOVE_DELTA, calPos);
                 //pull back if the plane distance of calculated pos and client pos is bigger than 1
                 if (collide || calPos.distance(posCli) > 1) //TBD
                 {

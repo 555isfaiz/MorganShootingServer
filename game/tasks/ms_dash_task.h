@@ -3,6 +3,7 @@
 
 #include "ms_simple_task.h"
 #include "game_session.h"
+#include "LinearMath/btVector3.h"
 
 #define DASH_SPEED 20.0f
 #define GAMETASKS msgame::gametasks
@@ -17,13 +18,13 @@ namespace msgame
             int32 playerId_;
             int64 lastExec_;
             int64 endT_;
-            VECTOR::Vector3 direction_;
+            btVector3 direction_;
 
         public:
             void Execute() override;
             void OnFinished() override;
 
-            DashTask(GAMESESSION::GameSession* game, int32 playerId, int64 duration, VECTOR::Vector3 direction);
+            DashTask(GAMESESSION::GameSession* game, int32 playerId, int64 duration, btVector3 direction);
             virtual ~DashTask() {}
         };
     } // namespace gametasks

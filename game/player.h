@@ -3,8 +3,8 @@
 
 #include <string>
 #include "ms_message.h"
-#include "physics/ms_collider.h"
 #include "ms_link_queue.h"
+#include "game_params.h"
 #include "ms_simple_task.h"
 #include "LinearMath/btVector3.h"
 #include "BulletCollision/CollisionDispatch/btCollisionObject.h"
@@ -12,7 +12,7 @@
 
 #define GAMEOBJECT msgame::gameobject
 
-static btCollisionShape *bt_sphere = new btSphereShape(btScalar(0.5f));
+static btCollisionShape *bt_sphere = new btSphereShape(btScalar(PLAYER_RADIUS));
 
 namespace msgame
 {
