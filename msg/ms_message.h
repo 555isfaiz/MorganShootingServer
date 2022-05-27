@@ -26,7 +26,7 @@ namespace msmessage
         virtual ~MessageBase(){}
     };
 
-        class BVector2 : public MessageBase 
+    class BVector2 : public MessageBase 
     {
     public:
         float x;
@@ -49,6 +49,20 @@ namespace msmessage
         void read(msutils::msstream::InputStream* in) override ;
         BVector3(){ id = 103; }
         virtual ~BVector3(){}
+    };
+
+    class BVector4 : public MessageBase 
+    {
+    public:
+        float x;
+        float y;
+        float z;
+        float w;
+
+        void write(msutils::msstream::OutputStream* out) override ;
+        void read(msutils::msstream::InputStream* in) override ;
+        BVector4(){ id = 104; }
+        virtual ~BVector4(){}
     };
 
     class CSMove : public MessageBase 
@@ -139,6 +153,19 @@ namespace msmessage
         virtual ~SCDashStop(){}
     };
 
+    class CSPlayerRotate : public MessageBase 
+    {
+    public:
+        int32 playerId;
+        BVector4 rotation;
+        int64 timeStamp;
+
+        void write(msutils::msstream::OutputStream* out) override ;
+        void read(msutils::msstream::InputStream* in) override ;
+        CSPlayerRotate(){ id = 2008; }
+        virtual ~CSPlayerRotate(){}
+    };
+
     class BPlayer : public MessageBase 
     {
     public:
@@ -146,6 +173,7 @@ namespace msmessage
         std::string playerName;
         int32 side;
         BVector3 curPos;
+        BVector4 rotation;
 
         void write(msutils::msstream::OutputStream* out) override ;
         void read(msutils::msstream::InputStream* in) override ;

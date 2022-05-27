@@ -5,35 +5,29 @@ import morgan.structure.serialize.OutputStream;
 
 
 
-public class BPlayer extends MessageBase {
+public class CSPlayerRotate extends MessageBase {
     public int playerId;
-    public String playerName;
-    public int side;
-    public BVector3 curPos;
     public BVector4 rotation;
+    public long timeStamp;
 
 
-    public BPlayer() {
-        msgId = 101;
+    public CSPlayerRotate() {
+        msgId = 2008;
     }
 
     @Override
     public void writeOut(OutputStream out) {
         out.write(playerId);
-        out.write(playerName);
-        out.write(side);
-        out.write(curPos);
         out.write(rotation);
+        out.write(timeStamp);
 
     }
 
     @Override
     public void readIn(InputStream in) {
         playerId = in.read();
-        playerName = in.read();
-        side = in.read();
-        curPos = in.read();
         rotation = in.read();
+        timeStamp = in.read();
 
     }
 }

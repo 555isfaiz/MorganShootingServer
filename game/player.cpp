@@ -22,11 +22,10 @@ namespace msgame
                 v.setZ(6.0f);
             }
             
-            v.setY(0.7f);
+            v.setY(5.0f);
             bt_cobj = new btCollisionObject();
             bt_cobj->setCollisionShape(bt_sphere);
             bt_cobj->setUserPointer(this);
-
             SetPosition(v);
         }
 
@@ -44,6 +43,11 @@ namespace msgame
             m.curPos.x = pos.getX();
             m.curPos.y = pos.getY();
             m.curPos.z = pos.getZ();
+            auto rot = GetRotation();
+            m.rotation.x = rot.getX();
+            m.rotation.y = rot.getY();
+            m.rotation.z = rot.getZ();
+            m.rotation.w = rot.getW();
             return m;
         }
     }

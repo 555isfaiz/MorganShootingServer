@@ -5,7 +5,7 @@
 #include "ms_utils.h"
 #include "ms_vector3.h"
 
-#define PLAYER_RADIUS 0.6f
+#define PLAYER_RADIUS_OLD 0.6f
 #define MOVE_SPEED 5.0f         // 5.0f equals to move speed in client, 
 #define MOVE_DELTA 20           // 20 equals to frame time in unity
 #define PI 3.14159f

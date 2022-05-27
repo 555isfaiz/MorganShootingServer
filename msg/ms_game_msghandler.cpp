@@ -1,5 +1,7 @@
 #include "ms_game_msghandler.h"
 #include "ms_logger.h"
+#include "game_session.h"
+#include "LinearMath/btQuaternion.h"
 
 namespace msmessage
 {
@@ -33,6 +35,15 @@ namespace msmessage
                 {
                     CSDash* csdash = reinterpret_cast<CSDash*>(msg);
                     Handle(senderId, *csdash);
+                    break;
+                }
+
+                case 2008:
+                {
+                    CSPlayerRotate* csrotate = reinterpret_cast<CSPlayerRotate*>(msg);
+                    auto player = owner->GetPlayer(csrotate->playerId);
+                    btQuaternion rot(csrotate->rotation.x, csrotate->rotation.y, csrotate->rotation.z, csrotate->rotation.w);
+                    player->SetRotation(rot);
                     break;
                 }
             }

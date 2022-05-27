@@ -7,6 +7,7 @@
 #include "game_params.h"
 #include "ms_simple_task.h"
 #include "LinearMath/btVector3.h"
+#include "LinearMath/btQuaternion.h"
 #include "BulletCollision/CollisionDispatch/btCollisionObject.h"
 #include "BulletCollision/CollisionShapes/btSphereShape.h"
 
@@ -49,6 +50,16 @@ namespace msgame
             btVector3 GetPosition() const
             {
                 return bt_cobj->getWorldTransform().getOrigin(); 
+            }
+
+            void SetRotation(const btQuaternion &rotation) 
+            {
+                bt_cobj->getWorldTransform().setRotation(rotation);
+            }
+
+            btQuaternion GetRotation() const
+            {
+                return bt_cobj->getWorldTransform().getRotation(); 
             }
 
             void SetVelocity(const btVector3 &velocity)

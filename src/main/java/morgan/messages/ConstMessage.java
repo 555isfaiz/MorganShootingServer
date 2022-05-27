@@ -19,8 +19,10 @@ public class ConstMessage implements IConstMessage {
         classToId.put(CSDash.class, 2005);
         classToId.put(SCDashStart.class, 2006);
         classToId.put(SCDashStop.class, 2007);
+        classToId.put(CSPlayerRotate.class, 2008);
         classToId.put(BVector2.class, 102);
         classToId.put(BVector3.class, 103);
+        classToId.put(BVector4.class, 104);
         classToId.put(BPlayer.class, 101);
         classToId.put(CSLogin.class, 1001);
         classToId.put(SCJoinGame.class, 1003);
@@ -45,10 +47,14 @@ public class ConstMessage implements IConstMessage {
                 return new SCDashStart();
             case 2007:
                 return new SCDashStop();
+            case 2008:
+                return new CSPlayerRotate();
             case 102:
                 return new BVector2();
             case 103:
                 return new BVector3();
+            case 104:
+                return new BVector4();
             case 101:
                 return new BPlayer();
             case 1001:

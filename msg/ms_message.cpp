@@ -111,6 +111,22 @@ namespace msmessage
 
     }
 
+    void CSPlayerRotate::write(STREAM::OutputStream* out)
+    {
+        out->write(playerId);
+        out->write(&rotation);
+        out->write(timeStamp);
+
+    }
+
+    void CSPlayerRotate::read(STREAM::InputStream* in)
+    {
+        playerId = in->ReadInt32();
+        rotation = *reinterpret_cast<BVector4*>(in->ReadMsg());
+        timeStamp = in->ReadInt64();
+
+    }
+
     void BVector2::write(STREAM::OutputStream* out)
     {
         out->write(x);
@@ -141,12 +157,31 @@ namespace msmessage
 
     }
 
+    void BVector4::write(STREAM::OutputStream* out)
+    {
+        out->write(x);
+        out->write(y);
+        out->write(z);
+        out->write(w);
+
+    }
+
+    void BVector4::read(STREAM::InputStream* in)
+    {
+        x = in->ReadFloat();
+        y = in->ReadFloat();
+        z = in->ReadFloat();
+        w = in->ReadFloat();
+
+    }
+
     void BPlayer::write(STREAM::OutputStream* out)
     {
         out->write(playerId);
         out->write(playerName);
         out->write(side);
         out->write(&curPos);
+        out->write(&rotation);
 
     }
 
@@ -156,6 +191,7 @@ namespace msmessage
         playerName = in->ReadString();
         side = in->ReadInt32();
         curPos = *reinterpret_cast<BVector3*>(in->ReadMsg());
+        rotation = *reinterpret_cast<BVector4*>(in->ReadMsg());
 
     }
 
@@ -282,6 +318,12 @@ namespace msmessage
                 return scdashstop;
             }
 
+            case 2008:
+            {
+                msmessage::CSPlayerRotate *csplayerrotate = new msmessage::CSPlayerRotate;
+                return csplayerrotate;
+            }
+
             case 102:
             {
                 msmessage::BVector2 *bvector2 = new msmessage::BVector2;
@@ -292,6 +334,12 @@ namespace msmessage
             {
                 msmessage::BVector3 *bvector3 = new msmessage::BVector3;
                 return bvector3;
+            }
+
+            case 104:
+            {
+                msmessage::BVector4 *bvector4 = new msmessage::BVector4;
+                return bvector4;
             }
 
             case 101:

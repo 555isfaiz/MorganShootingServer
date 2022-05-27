@@ -43,5 +43,12 @@
         "msgId" : 2007,
         "1" : "playerId$int",
         "2" : "finalPos$BVector3"
+    },
+
+    "CSPlayerRotate" : {
+        "msgId" : 2008,
+        "1" : "playerId$int",
+        "2" : "rotation$BVector4",
+        "3" : "timeStamp$long"
     }
 }

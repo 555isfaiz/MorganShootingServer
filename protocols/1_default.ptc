@@ -12,13 +12,22 @@
         "3" : "z$float"
     },
 
+    "BVector4" : {
+        "msgId" : 104,
+        "1" : "x$float",
+        "2" : "y$float",
+        "3" : "z$float",
+        "4" : "w$float"
+    },
+
     // there will be player status info in the future
     "BPlayer" : {           
         "msgId" : 101,
         "1" : "playerId$int",
         "2" : "playerName$string",
         "3" : "side$int",
-        "4" : "curPos$BVector3"
+        "4" : "curPos$BVector3",
+        "5" : "rotation$BVector4"
     },
 
     "CSLogin" : {
