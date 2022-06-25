@@ -267,6 +267,68 @@ namespace msmessage
 
     }
 
+    void CSFireStart::write(STREAM::OutputStream* out)
+    {
+        out->write(isFire1);
+        out->write(&direction);
+        out->write(timeStamp);
+
+    }
+
+    void CSFireStart::read(STREAM::InputStream* in)
+    {
+        isFire1 = in->ReadBool();
+        direction = *reinterpret_cast<BVector3*>(in->ReadMsg());
+        timeStamp = in->ReadInt64();
+
+    }
+
+    void SCFireSync::write(STREAM::OutputStream* out)
+    {
+        out->write(isFire1);
+        out->write(isFire2);
+        out->write(&direction);
+        out->write(f1Ammo);
+        out->write(f2Ammo);
+        out->write(timeStamp);
+
+    }
+
+    void SCFireSync::read(STREAM::InputStream* in)
+    {
+        isFire1 = in->ReadBool();
+        isFire2 = in->ReadBool();
+        direction = *reinterpret_cast<BVector3*>(in->ReadMsg());
+        f1Ammo = in->ReadInt32();
+        f2Ammo = in->ReadInt32();
+        timeStamp = in->ReadInt64();
+
+    }
+
+    void CSFireStop::write(STREAM::OutputStream* out)
+    {
+        out->write(isFire1);
+        out->write(timeStamp);
+
+    }
+
+    void CSFireStop::read(STREAM::InputStream* in)
+    {
+        isFire1 = in->ReadBool();
+        timeStamp = in->ReadInt64();
+
+    }
+
+    void CSSwitchWeapon::write(STREAM::OutputStream* out)
+    {
+
+    }
+
+    void CSSwitchWeapon::read(STREAM::InputStream* in)
+    {
+
+    }
+
 
     //InputStream.ReadMsg need a instance of the message
     //dont want to override operator '=' for all messages
@@ -370,6 +432,30 @@ namespace msmessage
             {
                 msmessage::SCGameSync *scgamesync = new msmessage::SCGameSync;
                 return scgamesync;
+            }
+
+            case 3001:
+            {
+                msmessage::CSFireStart *csfirestart = new msmessage::CSFireStart;
+                return csfirestart;
+            }
+
+            case 3002:
+            {
+                msmessage::SCFireSync *scfiresync = new msmessage::SCFireSync;
+                return scfiresync;
+            }
+
+            case 3003:
+            {
+                msmessage::CSFireStop *csfirestop = new msmessage::CSFireStop;
+                return csfirestop;
+            }
+
+            case 3004:
+            {
+                msmessage::CSSwitchWeapon *csswitchweapon = new msmessage::CSSwitchWeapon;
+                return csswitchweapon;
             }
 
 

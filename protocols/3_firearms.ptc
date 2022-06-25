@@ -1,0 +1,28 @@
+{
+    "CSFireStart" : {
+        "msgId" : 3001,
+        "1" : "isFire1$bool",
+        "2" : "direction$BVector3",
+        "3" : "timeStamp$long"
+    },
+
+    "SCFireSync" : {
+        "msgId" : 3002,
+        "1" : "isFire1$bool",
+        "2" : "isFire2$bool",
+        "3" : "direction$BVector3",
+        "4" : "f1Ammo$int",
+        "5" : "f2Ammo$int",
+        "6" : "timeStamp$long"
+    },
+
+    "CSFireStop" : {
+        "msgId" : 3003,
+        "1" : "isFire1$bool",
+        "2" : "timeStamp$long"
+    },
+
+    "CSSwitchWeapon" : {
+        "msgId" : 3004
+    }
+}

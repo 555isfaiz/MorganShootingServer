@@ -228,6 +228,57 @@ namespace msmessage
         virtual ~SCGameSync(){}
     };
 
+    class CSFireStart : public MessageBase 
+    {
+    public:
+        bool isFire1;
+        BVector3 direction;
+        int64 timeStamp;
+
+        void write(msutils::msstream::OutputStream* out) override ;
+        void read(msutils::msstream::InputStream* in) override ;
+        CSFireStart(){ id = 3001; }
+        virtual ~CSFireStart(){}
+    };
+
+    class SCFireSync : public MessageBase 
+    {
+    public:
+        bool isFire1;
+        bool isFire2;
+        BVector3 direction;
+        int32 f1Ammo;
+        int32 f2Ammo;
+        int64 timeStamp;
+
+        void write(msutils::msstream::OutputStream* out) override ;
+        void read(msutils::msstream::InputStream* in) override ;
+        SCFireSync(){ id = 3002; }
+        virtual ~SCFireSync(){}
+    };
+
+    class CSFireStop : public MessageBase 
+    {
+    public:
+        bool isFire1;
+        int64 timeStamp;
+
+        void write(msutils::msstream::OutputStream* out) override ;
+        void read(msutils::msstream::InputStream* in) override ;
+        CSFireStop(){ id = 3003; }
+        virtual ~CSFireStop(){}
+    };
+
+    class CSSwitchWeapon : public MessageBase 
+    {
+    public:
+
+        void write(msutils::msstream::OutputStream* out) override ;
+        void read(msutils::msstream::InputStream* in) override ;
+        CSSwitchWeapon(){ id = 3004; }
+        virtual ~CSSwitchWeapon(){}
+    };
+
 
 
     MessageBase* GetMsgById(int64 id);

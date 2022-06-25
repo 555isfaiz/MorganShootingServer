@@ -28,6 +28,10 @@ public class ConstMessage implements IConstMessage {
         classToId.put(SCJoinGame.class, 1003);
         classToId.put(SCLogin.class, 1004);
         classToId.put(SCGameSync.class, 1005);
+        classToId.put(CSFireStart.class, 3001);
+        classToId.put(SCFireSync.class, 3002);
+        classToId.put(CSFireStop.class, 3003);
+        classToId.put(CSSwitchWeapon.class, 3004);
 
     }
 
@@ -65,6 +69,14 @@ public class ConstMessage implements IConstMessage {
                 return new SCLogin();
             case 1005:
                 return new SCGameSync();
+            case 3001:
+                return new CSFireStart();
+            case 3002:
+                return new SCFireSync();
+            case 3003:
+                return new CSFireStop();
+            case 3004:
+                return new CSSwitchWeapon();
 
         }
         return null;
