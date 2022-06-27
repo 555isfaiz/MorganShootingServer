@@ -28,9 +28,11 @@ JNIEXPORT void JNICALL Java_morgan_natives_NtvGame_pulse(JNIEnv *env, jobject jo
     {
         //should throw exception...
         mLogError("nullptr of GameSession!");
-        return;
     }
-    g->Pulse();
+    else
+    {
+        g->Pulse();
+    }
     jenvpop();
 }
 
@@ -92,6 +94,10 @@ JNIEXPORT void JNICALL Java_morgan_natives_NtvGame_removePlayer(JNIEnv *env, job
 {
     jenvdump(env);
     auto g = reinterpret_cast<GameSession*>(obj_jniUtils.GetNtvPtr(env, jobj));
+    if (g != nullptr)
+    {
+        g->RemovePlayer(playerId);
+    }
     jenvpop();
 }
 
@@ -99,20 +105,19 @@ JNIEXPORT void JNICALL Java_morgan_natives_NtvGame_destroy(JNIEnv *env, jobject 
 {
     jenvdump(env);
     auto g = reinterpret_cast<GameSession*>(obj_jniUtils.GetNtvPtr(env, jobj));
-    if (g == nullptr)
+    if (g != nullptr)
     {
-        return;
-    }
-    int sessionId = g->SessionId();
-    if (auto jvPtr = g->GetJvObj())
-    {
-        env->DeleteWeakGlobalRef((jweak)jvPtr);
-        g->SetJvObj(nullptr);
-    }
+        int sessionId = g->SessionId();
+        if (auto jvPtr = g->GetJvObj())
+        {
+            env->DeleteWeakGlobalRef((jweak)jvPtr);
+            g->SetJvObj(nullptr);
+        }
 
-    obj_jniUtils.SetNtvPtr(env, jobj, nullptr);
-    delete g;
-    
-    mLogInfo("game session destroyed, session Id:"<<sessionId);
+        obj_jniUtils.SetNtvPtr(env, jobj, nullptr);
+        delete g;
+        
+        mLogInfo("game session destroyed, session Id:"<<sessionId);
+    }
     jenvpop();
 }

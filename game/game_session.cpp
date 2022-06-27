@@ -142,9 +142,9 @@ namespace msgame
 
         void GameSession::RemovePlayer(int32 id)
         {
+            msgame::gameobject::Player *player = players_[id];
             players_.erase(id);
 
-            msgame::gameobject::Player *player = players_[id];
             delete player;
 
             // sync to client

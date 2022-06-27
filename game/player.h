@@ -34,7 +34,7 @@ namespace msgame
 
             int32 number_;
             Player(int32 id, std::string &name, int32 side);
-            virtual ~Player() {}
+            virtual ~Player();
 
             void Pulse();
 

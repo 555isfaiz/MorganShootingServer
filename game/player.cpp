@@ -50,5 +50,10 @@ namespace msgame
             m.rotation.w = rot.getW();
             return m;
         }
+
+        Player::~Player()
+        {
+            delete bt_cobj;
+        }
     }
 }
