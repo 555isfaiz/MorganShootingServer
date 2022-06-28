@@ -19,15 +19,19 @@ namespace msgame
 {
     namespace gameobject
     {
+        class PlayerIngameInfo;
+
         class Player
         {
         private:
             int32 id_;
             std::string name_;
-            btCollisionObject *bt_cobj;
+            btCollisionObject* bt_cobj;
 
             int32 jumpPhase_;
             int64 jumpStart_;
+
+            PlayerIngameInfo* ingame_obj;
             
         public:
             
@@ -72,9 +76,14 @@ namespace msgame
                 return bt_cobj->getInterpolationLinearVelocity(); 
             }
 
-            btCollisionObject *GetCollisionObject() const
+            btCollisionObject* GetCollisionObject() const
             {
                 return bt_cobj;
+            }
+
+            PlayerIngameInfo* GetPlayerIngameInfo() const
+            {
+                return ingame_obj;
             }
 
             inline int32 GetJumpPhase() { return jumpPhase_; }

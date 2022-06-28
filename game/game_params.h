@@ -11,4 +11,10 @@
 #define JUMP_INITIAL_V              10.0f
 #define PI                          3.14159f
 
+#define HP_MAX                      100
+
+#define Rifle_bullet_fly_speed      10;
+#define Rifle_fire_frequency        10;
+#define Rifle_reload_duration       1;
+
 #endif

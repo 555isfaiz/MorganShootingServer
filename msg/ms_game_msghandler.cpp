@@ -46,6 +46,21 @@ namespace msmessage
                     player->SetRotation(rot);
                     break;
                 }
+
+                case 3001:
+                {
+                    break;
+                }
+
+                case 3003:
+                {
+                    break;
+                }
+
+                case 3004:
+                {
+                    break;
+                }
             }
         }
     }

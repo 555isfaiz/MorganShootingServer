@@ -1,5 +1,6 @@
 #include "player.h"
 #include "ms_message.h"
+#include "player_ingame_info.h"
 
 namespace msgame
 {
@@ -26,6 +27,8 @@ namespace msgame
             bt_cobj = new btCollisionObject();
             bt_cobj->setCollisionShape(bt_sphere);
             bt_cobj->setUserPointer(this);
+
+            ingame_obj = new PlayerIngameInfo(this);
             SetPosition(v);
         }
 
