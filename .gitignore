@@ -3,3 +3,6 @@
 build/
 .DS_Store
 bin/
+.classpath
+.project
+org.eclipse.*
